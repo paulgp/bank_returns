@@ -1,0 +1,47 @@
+
+\begin{table}[htbp]
+   \caption{\label{tab:dep_assets} Cumulative returns correlated with asset size. This table reports estimated coefficients of regressions with the cumulative returns in excess of the S\&P 500 index for the banks in our sample. \%
+      In Column (1), we report the relationship with binned indicator variables of total assets measured in 2022q4. The bins exhaustively bin out all observations, and do not include a constant, so each coefficient is the average for each bin. \%
+      Column (2) includes the binned controls for assets (excluding the bin for banks with total assets less than 5 billion dollars) and a constant, as well as the controls for uninsured deposit share, tier 1 capital ratio, cash/ total assets and unrealized hold-to-maturity losses. Column 3 adds the cumulative abnormal return from February 1, 2022 to January 31, 2023 to Column (2). Columns (1)-(3) use cumluative returns from February 1, 2023 to March 17, 2023 as the outcome. Columns (4)-(6) repeat Columns (1)-(3) and use cumluative returns from February 1, 2023 to May 10, 2023 as the outcome.
+       All variables (except for the cumulative returns) are mean zero and standarized to have standard deviation one, prior to interactions.}
+   \bigskip
+   \centering
+   \begin{adjustbox}{width = 1.2\textwidth, center}
+      \begin{tabular}{lcccccc}
+         \toprule
+                                                & (1)            & (2)            & (3)            & (4)            & (5)            & (6)\\  
+         \midrule 
+         Assets [0-5b]                          & -0.113$^{***}$ &                &                & -0.319$^{***}$ &                &   \\   
+                                                & (0.009)        &                &                & (0.016)        &                &   \\   
+         Assets (5b-10b]                        & -0.115$^{***}$ & 0.002          & 0.008          & -0.331$^{***}$ & 0.0005         & 0.008\\   
+                                                & (0.010)        & (0.013)        & (0.011)        & (0.015)        & (0.022)        & (0.021)\\   
+         Assets (10b-50b]                       & -0.160$^{***}$ & -0.041$^{***}$ & -0.041$^{***}$ & -0.354$^{***}$ & -0.014         & -0.015\\   
+                                                & (0.013)        & (0.016)        & (0.013)        & (0.017)        & (0.025)        & (0.022)\\   
+         Assets (50b-250b]                      & -0.283$^{***}$ & -0.147$^{***}$ & -0.132$^{***}$ & -0.375$^{***}$ & -0.019         & 0.0009\\   
+                                                & (0.032)        & (0.022)        & (0.023)        & (0.060)        & (0.048)        & (0.050)\\   
+         Assets (250b-1tr]                      & -0.224$^{***}$ & -0.115$^{***}$ & -0.096$^{***}$ & -0.333$^{***}$ & 0.011          & 0.036\\   
+                                                & (0.026)        & (0.027)        & (0.027)        & (0.033)        & (0.045)        & (0.045)\\   
+         Assets (1tr-10tr]                      & -0.122$^{***}$ & 0.003          & 0.011          & -0.148$^{***}$ & 0.211$^{***}$  & 0.223$^{***}$\\   
+                                                & (0.016)        & (0.022)        & (0.022)        & (0.029)        & (0.045)        & (0.044)\\   
+         (Intercept)                            &                & -0.122$^{***}$ & -0.132$^{***}$ &                & -0.338$^{***}$ & -0.352$^{***}$\\   
+                                                &                & (0.009)        & (0.008)        &                & (0.018)        & (0.017)\\   
+         Uninsured Deposit Share                &                & -0.023$^{***}$ & -0.014$^{**}$  &                & -0.066$^{***}$ & -0.053$^{***}$\\   
+                                                &                & (0.008)        & (0.007)        &                & (0.014)        & (0.012)\\   
+         Tier 1 Capital Ratio                   &                & 0.014$^{**}$   & 0.015$^{**}$   &                & 0.009          & 0.010\\   
+                                                &                & (0.006)        & (0.006)        &                & (0.011)        & (0.011)\\   
+         Cash / Total Assets                    &                & 0.028$^{***}$  & 0.017$^{**}$   &                & 0.054$^{***}$  & 0.039$^{***}$\\   
+                                                &                & (0.007)        & (0.007)        &                & (0.011)        & (0.010)\\   
+         Unrealized HTM Losses / Tier 1 Capital &                & -0.034$^{***}$ & -0.032$^{***}$ &                & -0.036$^{***}$ & -0.034$^{***}$\\   
+                                                &                & (0.004)        & (0.005)        &                & (0.007)        & (0.007)\\   
+         Cumulative Abnormal Returns (2022)     &                &                & 0.220$^{***}$  &                &                & 0.288$^{***}$\\   
+                                                &                &                & (0.057)        &                &                & (0.095)\\   
+          \\
+         Observations                           & 224            & 216            & 216            & 224            & 216            & 216\\  
+         R$^2$                                  & 0.241          & 0.492          & 0.566          & 0.045          & 0.349          & 0.408\\  
+         Adjusted R$^2$                         & 0.224          & 0.470          & 0.545          & 0.023          & 0.321          & 0.380\\  
+         \bottomrule
+      \end{tabular}
+   \end{adjustbox}
+\end{table}
+
+

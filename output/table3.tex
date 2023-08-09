@@ -1,0 +1,35 @@
+
+\begin{table}[htbp]
+   \caption{\label{tab:dep_htm} Cumulative returns correlated with uninsured deposits and HTM. This table reports estimated coefficients of regressions with the cumulative returns in excess of the S\&P 500 index for the banks in our sample from February 1, 2023 to March 17, 2023 as the outcome.  In Column (1), we report the bivariate relationship with the uninsured deposit share (uninsured deposts as a share of total
+   deposits) measured in 2022q4. Column (2) reports the coefficient with the hold-to-maturity asset share (hold-to-maturity assets
+   as a share of total assets) measured in 2022q4. Column (3) reports unrealized hold-to-
+   maturity losses scaled by tier 1 capital. Column (4) combines Columns (1)-(3). Column (5) adds the interaction of uninsured deposit share with HTM Asset Share and Unrealized HTM Losses. All variables (except for the cumulative returns) are mean zero and standarized to have standard deviation one, prior to interactions.}
+   \bigskip
+   \centering
+   \begin{adjustbox}{width = 1.2\textwidth, center}
+      \begin{tabular}{lccccc}
+         \toprule
+                                                                                  & (1)            & (2)            & (3)            & (4)            & (5)\\  
+         \midrule 
+         (Intercept)                                                              & -0.152$^{***}$ & -0.152$^{***}$ & -0.152$^{***}$ & -0.152$^{***}$ & -0.147$^{***}$\\   
+                                                                                  & (0.007)        & (0.007)        & (0.007)        & (0.006)        & (0.007)\\   
+         Uninsured Deposit Share                                                  & -0.037$^{***}$ &                &                & -0.027$^{***}$ & -0.025$^{***}$\\   
+                                                                                  & (0.010)        &                &                & (0.008)        & (0.008)\\   
+         HTM Asset Share                                                          &                & -0.033$^{***}$ &                & -0.012         & -0.009\\   
+                                                                                  &                & (0.011)        &                & (0.009)        & (0.007)\\   
+         Unrealized HTM Losses / Tier 1 Capital                                   &                &                & -0.050$^{***}$ & -0.040$^{***}$ & -0.011\\   
+                                                                                  &                &                & (0.006)        & (0.006)        & (0.007)\\   
+         Uninsured Deposit Share $\times$ HTM Asset Share                         &                &                &                &                & -0.001\\   
+                                                                                  &                &                &                &                & (0.005)\\   
+         Uninsured Deposit Share $\times$ Unrealized HTM Losses / Tier 1 Capital  &                &                &                &                & -0.022$^{***}$\\   
+                                                                                  &                &                &                &                & (0.005)\\   
+          \\
+         Observations                                                             & 224            & 224            & 222            & 222            & 222\\  
+         R$^2$                                                                    & 0.112          & 0.089          & 0.198          & 0.273          & 0.302\\  
+         Adjusted R$^2$                                                           & 0.108          & 0.085          & 0.195          & 0.263          & 0.286\\  
+         \bottomrule
+      \end{tabular}
+   \end{adjustbox}
+\end{table}
+
+

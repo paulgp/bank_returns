@@ -1,0 +1,41 @@
+
+\begin{table}[htbp]
+   \caption{\label{tab:liquid_assets} Cumulative returns correlated with liquid assets. This table reports estimated coefficients of regressions with the cumulative returns in excess of the S\&P 500 index for the banks in our sample from February 1, 2023 to March 17, 2023 as the outcome. \%
+      In Column (1), we report the bivariate relationship with the liquid asset share (securities + cash scaled by total
+   assets) measured in 2022q4. \%
+      Column (2) adds uninsured deposit share to Column (1). \%
+      Column (3) reports the coefficient with the cash scaled by total assets and securities scaled by total assets. \%
+       Column (4) adds uninsured deposit share to Column (3). \%
+       Column (5) interacts uninsured deposit share with cash and securities. \%
+       All variables (except for the cumulative returns) are mean zero and standarized to have standard deviation one, prior to interactions.}
+   \bigskip
+   \centering
+   \begin{adjustbox}{width = 1.2\textwidth, center}
+      \begin{tabular}{lccccc}
+         \toprule
+                                                                     & (1)            & (2)            & (3)            & (4)            & (5)\\  
+         \midrule 
+         (Intercept)                                                 & -0.152$^{***}$ & -0.152$^{***}$ & -0.152$^{***}$ & -0.152$^{***}$ & -0.153$^{***}$\\   
+                                                                     & (0.007)        & (0.007)        & (0.007)        & (0.007)        & (0.007)\\   
+         Liquid Assets / Total Assets                                & -0.005         &                & 0.008          &                &   \\   
+                                                                     & (0.009)        &                & (0.009)        &                &   \\   
+         Cash / Total Assets                                         &                & 0.014$^{**}$   &                & 0.027$^{***}$  & 0.022$^{***}$\\   
+                                                                     &                & (0.007)        &                & (0.008)        & (0.007)\\   
+         Securities / Total Assets                                   &                & -0.014         &                & -0.005         & -0.003\\   
+                                                                     &                & (0.009)        &                & (0.008)        & (0.007)\\   
+         Uninsured Deposit Share                                     &                &                & -0.040$^{***}$ & -0.044$^{***}$ & -0.043$^{***}$\\   
+                                                                     &                &                & (0.010)        & (0.010)        & (0.010)\\   
+         Cash / Total Assets $\times$ Uninsured Deposit Share        &                &                &                &                & 0.009$^{*}$\\   
+                                                                     &                &                &                &                & (0.005)\\   
+         Securities / Total Assets $\times$ Uninsured Deposit Share  &                &                &                &                & -0.007\\   
+                                                                     &                &                &                &                & (0.010)\\   
+          \\
+         Observations                                                & 224            & 224            & 224            & 224            & 224\\  
+         R$^2$                                                       & 0.002          & 0.033          & 0.117          & 0.169          & 0.184\\  
+         Adjusted R$^2$                                              & -0.003         & 0.024          & 0.109          & 0.157          & 0.165\\  
+         \bottomrule
+      \end{tabular}
+   \end{adjustbox}
+\end{table}
+
+

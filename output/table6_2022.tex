@@ -1,0 +1,53 @@
+
+\begin{table}[htbp]
+   \caption{\label{tab:dep_2022} Cumulative returns in 2022 correlations. This table reports estimated coefficients of regressions with the cumulative returns in excess of the S\&P 500 index for the banks in our sample from February 1, 2022 to January 31, 2023. \%
+      In Column (1), we report the relationship with binned indicator variables of total assets measured in 2022q4. The bins exhaustively bin out all observations, and do not include a constant, so each coefficient is the average for each bin. \%
+      Column (2) includes the binned controls for assets (excluding the bin for banks with total assets less than 5 billion dollars) and a constant, as well as the controls for uninsured deposit share, hold-to-maturity asset share, and unrealized hold-to-maturity losses.
+      Column (3) includes  cash/ total assets and securities / total assets.
+      Column (4) includes  tier 1 capital ratio and non-performing loan ratio.
+       All variables are mean zero and standarized to have standard deviation one, prior to interactions.}
+   \bigskip
+   \centering
+   \begin{adjustbox}{width = 1\textwidth, center}
+      \begin{tabular}{lcccc}
+         \toprule
+                                                & (1)           & (2)          & (3)            & (4)\\  
+         \midrule 
+         Assets [0-5b]                          & 0.050$^{**}$  &              &                &   \\   
+                                                & (0.024)       &              &                &   \\   
+         Assets (5b-10b]                        & 0.023         & -0.025       & -0.017         & -0.025\\   
+                                                & (0.019)       & (0.031)      & (0.030)        & (0.029)\\   
+         Assets (10b-50b]                       & 0.043$^{***}$ & 0.005        & 0.010          & 0.005\\   
+                                                & (0.015)       & (0.029)      & (0.029)        & (0.029)\\   
+         Assets (50b-250b]                      & -0.006        & -0.039       & -0.060         & -0.060\\   
+                                                & (0.037)       & (0.042)      & (0.041)        & (0.041)\\   
+         Assets (250b-1tr]                      & -0.038$^{*}$  & -0.061       & -0.085$^{**}$  & -0.084$^{**}$\\   
+                                                & (0.022)       & (0.043)      & (0.038)        & (0.038)\\   
+         Assets (1tr-10tr]                      & 0.005         & -0.008       & -0.033         & -0.018\\   
+                                                & (0.038)       & (0.045)      & (0.041)        & (0.046)\\   
+         (Intercept)                            &               & 0.041        & 0.040          & 0.046$^{*}$\\   
+                                                &               & (0.025)      & (0.025)        & (0.024)\\   
+         Uninsured Deposit Share                &               & -0.021$^{*}$ & -0.034$^{***}$ & -0.042$^{***}$\\   
+                                                &               & (0.012)      & (0.012)        & (0.013)\\   
+         HTM Asset Share                        &               & -0.007       & -0.005         & -0.006\\   
+                                                &               & (0.015)      & (0.013)        & (0.013)\\   
+         Unrealized HTM Losses / Tier 1 Capital &               & -0.012       & -0.007         & -0.007\\   
+                                                &               & (0.011)      & (0.012)        & (0.011)\\   
+         Cash / Total Assets                    &               &              & 0.048$^{***}$  & 0.052$^{***}$\\   
+                                                &               &              & (0.010)        & (0.011)\\   
+         Securities / Total Assets              &               &              & -0.0005        & -0.0002\\   
+                                                &               &              & (0.010)        & (0.011)\\   
+         Tier 1 Capital Ratio                   &               &              &                & -0.003\\   
+                                                &               &              &                & (0.012)\\   
+         Non-Performing Loans / Total Loans     &               &              &                & -0.014\\   
+                                                &               &              &                & (0.010)\\   
+          \\
+         Observations                           & 224           & 222          & 222            & 216\\  
+         R$^2$                                  & 0.016         & 0.058        & 0.145          & 0.175\\  
+         Adjusted R$^2$                         & -0.007        & 0.023        & 0.104          & 0.127\\  
+         \bottomrule
+      \end{tabular}
+   \end{adjustbox}
+\end{table}
+
+
