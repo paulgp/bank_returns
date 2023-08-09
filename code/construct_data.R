@@ -744,7 +744,7 @@ ggplot(data = returns_data_parsed %>%
     color = "black",
   ) +
   geom_line(aes(y = cumul_abnormal, x = Date, color = ticker)) +
-  #geom_point(aes(y = cumul_abnormal, x = Date, color = ticker)) +
+  # geom_point(aes(y = cumul_abnormal, x = Date, color = ticker)) +
   geom_text_repel(
     data = returns_data_parsed %>%
       filter(ticker %in% bank_list &
