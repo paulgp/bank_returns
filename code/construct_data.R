@@ -413,14 +413,32 @@ ticker_betas <- as_tibble(returns_data_parsed_2022) %>%
   ) %>%
   select(ticker, beta = slope)
 
+ticker_bankbetas <- as_tibble(returns_data_parsed_2022) %>%
+  filter(year(Date) == 2022) %>%
+  select(ticker, daily_return, daily_return_mkt, abnormal_bank_idx) %>%
+  nest(data = -ticker) %>%
+  mutate(
+    linMod = map(data, ~ lm(daily_return ~ daily_return_mkt + abnormal_bank_idx, data = .)),
+    coef = map(linMod, coefficients),
+    vcov = map(linMod, vcov),
+    slope = map_dbl(coef, 3),
+    slope_se = sqrt(map_dbl(vcov, 9))
+  ) %>%
+  select(ticker,
+    beta_bank = slope,
+    # beta_bank_se = slope_se
+  )
+
 
 returns_data_parsed_feb15 <- returns_data_parsed %>%
   filter(Date >= as.Date("2023-02-15")) %>%
   left_join(ticker_betas, by = "ticker") %>%
+  left_join(ticker_bankbetas, by = "ticker") %>%
   mutate(abnormal_capm = daily_return - (daily_return_mkt * beta)) %>%
   mutate(cumul_abnormal_capm = exp(cumsum(log(1 + abnormal_capm))) - 1)
 returns_data_parsed <- returns_data_parsed %>%
   left_join(ticker_betas, by = "ticker") %>%
+  left_join(ticker_bankbetas, by = "ticker") %>%
   mutate(abnormal_capm = daily_return - (daily_return_mkt * beta)) %>%
   mutate(cumul_abnormal_capm = exp(cumsum(log(1 + abnormal_capm))) - 1)
 
@@ -776,6 +794,35 @@ ggplot(data = bank_cumul_ret_2022 %>%
   )
 ggsave("output/fig3_2022_v_2023_returns.pdf", width = 8, height = 6)
 
+### Trying out bank beta
+ggplot(data = bank_cumul_ret_2022 %>%
+  select(ticker, cumul_abnormal_2022 = cumul_abnormal) %>%
+  inner_join(bank_cumul_ret_early,
+    by = c("ticker")
+  )) +
+  geom_point(
+    aes(y = cumul_abnormal, x = beta_bank)
+  ) +
+  geom_smooth(
+    aes(y = cumul_abnormal, x = beta_bank),
+    method = "lm"
+  ) +
+  geom_text_repel(aes(y = cumul_abnormal, x = beta_bank, label = ticker)) +
+  labs(
+    x = "Factor loading on Bank Index in Excess of S&P500\n2022-02-01 to 2023-01-31",
+    y = "Cumulative Abnormal Returns\n2023-02-01 to 2023-03-17"
+  )
+
+feols(cumul_abnormal ~ beta_bank + cumul_abnormal_2022,
+  data = bank_cumul_ret_2022 %>%
+    select(ticker, cumul_abnormal_2022 = cumul_abnormal) %>%
+    inner_join(bank_cumul_ret_early,
+      by = c("ticker")
+    )
+)
+
+
+
 # Figure 4 ----
 ggplot(data = returns_data_parsed %>%
   filter(ticker %in% bank_list & ticker != "SI")) +
@@ -993,7 +1040,8 @@ var_dict <- c(
   `asset_bin(1e+07,5e+07]` = "Assets (10b-50b]",
   `asset_bin(5e+07,2.5e+08]` = "Assets (50b-250b]",
   `asset_bin(2.5e+08,1e+09]` = "Assets (250b-1tr]",
-  `asset_bin(1e+09,5e+09]` = "Assets (1tr-10tr]"
+  `asset_bin(1e+09,5e+09]` = "Assets (1tr-10tr]",
+  beta_bank = "Beta on Bank Index (Excess of S&P500)"
 )
 
 bank_cumul_ret_linked_y9c_early <- bank_cumul_ret_linked_y9c_early %>%
@@ -1805,7 +1853,8 @@ est2 <- feols(
     dep_unins_share_std +
     tier1capratio_std +
     cash_asset_ratio_std +
-    unrealized_htm_losses_rat_tier1_std,
+    unrealized_htm_losses_rat_tier1_std +
+    beta_bank,
   data = reg_data
 )
 est3 <- feols(
@@ -1816,6 +1865,7 @@ est3 <- feols(
     tier1capratio_std +
     cash_asset_ratio_std +
     unrealized_htm_losses_rat_tier1_std +
+    beta_bank +
     cumul_abnormal_2022,
   data = reg_data
 )
@@ -1832,7 +1882,8 @@ est5 <- feols(
     dep_unins_share_std +
     tier1capratio_std +
     cash_asset_ratio_std +
-    unrealized_htm_losses_rat_tier1_std,
+    unrealized_htm_losses_rat_tier1_std +
+    beta_bank,
   data = reg_data
 )
 est6 <- feols(
@@ -1842,6 +1893,7 @@ est6 <- feols(
     tier1capratio_std +
     cash_asset_ratio_std +
     unrealized_htm_losses_rat_tier1_std +
+    beta_bank +
     cumul_abnormal_2022,
   data = reg_data
 )
@@ -1855,7 +1907,7 @@ etable(est1, est2, est3, est4, est5, est6,
   label = "tab:dep_assets",
   title = "Cumulative returns correlated with asset size. This table reports estimated coefficients of regressions with the cumulative returns in excess of the S\\&P 500 index for the banks in our sample. %
    In Column (1), we report the relationship with binned indicator variables of total assets measured in 2022q4. The bins exhaustively bin out all observations, and do not include a constant, so each coefficient is the average for each bin. %
-   Column (2) includes the binned controls for assets (excluding the bin for banks with total assets less than 5 billion dollars) and a constant, as well as the controls for uninsured deposit share, tier 1 capital ratio, cash/ total assets and unrealized hold-to-maturity losses. Column 3 adds the cumulative abnormal return from February 1, 2022 to January 31, 2023 to Column (2). Columns (1)-(3) use cumluative returns from February 1, 2023 to March 17, 2023 as the outcome. Columns (4)-(6) repeat Columns (1)-(3) and use cumluative returns from February 1, 2023 to May 25, 2023 as the outcome.
+   Column (2) includes the binned controls for assets (excluding the bin for banks with total assets less than 5 billion dollars) and a constant, as well as the controls for uninsured deposit share, tier 1 capital ratio, cash/ total assets and unrealized hold-to-maturity losses. We also include a control for the individual banks' estimated factor loading (beta) on the bank index in excess of the S\\&P500 in 2022. This captures any systematic loading on overall bank movements. Column 3 adds the cumulative abnormal return from February 1, 2022 to January 31, 2023 to Column (2). Columns (1)-(3) use cumluative returns from February 1, 2023 to March 17, 2023 as the outcome. Columns (4)-(6) repeat Columns (1)-(3) and use cumluative returns from February 1, 2023 to May 25, 2023 as the outcome.
     All variables (except for the cumulative returns) are mean zero and standarized to have standard deviation one, prior to interactions.",
   dict = var_dict,
   file = "output/table5_size.tex", replace = TRUE
@@ -1873,7 +1925,8 @@ est2 <- feols(
     dep_unins_share_std +
     tier1capratio_std +
     cash_asset_ratio_std +
-    unrealized_htm_losses_rat_tier1_std,
+    unrealized_htm_losses_rat_tier1_std +
+    beta_bank,
   data = reg_data
 )
 est3 <- feols(
@@ -1884,6 +1937,7 @@ est3 <- feols(
     tier1capratio_std +
     cash_asset_ratio_std +
     unrealized_htm_losses_rat_tier1_std +
+    beta_bank +
     cumul_abnormal_2022,
   data = reg_data
 )
@@ -1900,7 +1954,8 @@ est5 <- feols(
     dep_unins_share_std +
     tier1capratio_std +
     cash_asset_ratio_std +
-    unrealized_htm_losses_rat_tier1_std,
+    unrealized_htm_losses_rat_tier1_std +
+    beta_bank,
   data = reg_data
 )
 est6 <- feols(
@@ -1910,6 +1965,7 @@ est6 <- feols(
     tier1capratio_std +
     cash_asset_ratio_std +
     unrealized_htm_losses_rat_tier1_std +
+    beta_bank +
     cumul_abnormal_2022,
   data = reg_data
 )
